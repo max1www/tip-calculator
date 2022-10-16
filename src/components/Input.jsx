@@ -16,7 +16,7 @@ const InputElement = styled.input`
       active ? 'var(--strong-cyan)' : 'var(--very-light-grayish-cyan)'};
   border-radius: 4px;
   outline: 0;
-  padding: 9px;
+  padding: ${({ icon }) => (icon ? '9px 9px 9px 40px' : '9px')};
   color: hsl(183, 100%, 15%);
   text-align: right;
   font-size: 24px;
