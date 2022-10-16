@@ -58,7 +58,7 @@ function Selector({ label, value: currentValue, options, onChange }) {
     const value = event.target.value;
 
     setCustomInput(value);
-    onChange(customInput ? customInput : options[0].value);
+    onChange(value ? value : options[0].value);
   };
 
   const handleCustomInputClick = () => {
@@ -81,7 +81,7 @@ function Selector({ label, value: currentValue, options, onChange }) {
           </SelectorButton>
         ))}
         <Input
-          type="number"
+          type="positiveInteger"
           placeholder="Custom"
           value={customInput}
           active={customInput === currentValue}

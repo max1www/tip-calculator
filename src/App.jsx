@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import styled from 'styled-components';
+import Big from 'big.js';
 
 import BillRow from './components/BillRow';
 import Button from './components/Button';
@@ -83,20 +84,38 @@ const InputWrapper = styled.section`
 function App() {
   const [form, setForm] = useState({
     bill: '',
-    tip: 5,
+    tip: '5',
     numberOfPerson: '',
   });
 
+  const [personalBill, setPersonalBill] = useState({
+    tipAmount: '0.00',
+    total: '0.00',
+  });
+
   const tipOptions = [
-    { label: '5%', value: 5 },
-    { label: '10%', value: 10 },
-    { label: '15%', value: 15 },
-    { label: '25%', value: 25 },
-    { label: '50%', value: 50 },
+    { label: '5%', value: '5' },
+    { label: '10%', value: '10' },
+    { label: '15%', value: '15' },
+    { label: '25%', value: '25' },
+    { label: '50%', value: '50' },
   ];
 
   useEffect(() => {
+    const { bill, tip, numberOfPerson } = form;
+
     console.log(form);
+
+    if (bill && tip && numberOfPerson) {
+      const billBig = new Big(bill);
+      const tipsBig = billBig.mul(new Big(tip).div(100));
+      const billWithTipsBig = billBig.plus(tipsBig);
+
+      setPersonalBill({
+        tipAmount: tipsBig.div(numberOfPerson).toFixed(2),
+        total: billWithTipsBig.div(numberOfPerson).toFixed(2),
+      });
+    }
   }, [form]);
 
   const handleFormEvent = (key, value) => {
@@ -111,6 +130,7 @@ function App() {
       <MainIsland>
         <Form>
           <Input
+            type="positiveDecimal"
             label="Bill"
             placeholder="0"
             icon="dollar"
@@ -127,6 +147,7 @@ function App() {
           </InputWrapper>
           <InputWrapper>
             <Input
+              type="positiveInteger"
               label="Number of people"
               placeholder="0"
               icon="person"
@@ -138,8 +159,12 @@ function App() {
           </InputWrapper>
         </Form>
         <BillIsland>
-          <BillRow label="Tip amount" subLabel="person" bill="0.00" />
-          <BillRow label="Total" subLabel="person" bill="0.00" />
+          <BillRow
+            label="Tip amount"
+            subLabel="person"
+            bill={personalBill.tipAmount}
+          />
+          <BillRow label="Total" subLabel="person" bill={personalBill.total} />
           <Button>RESET</Button>
         </BillIsland>
       </MainIsland>
