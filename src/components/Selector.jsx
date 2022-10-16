@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 
@@ -54,13 +54,18 @@ function Selector({ label, value: currentValue, options, onChange }) {
     onChange(value);
   };
 
-  const handleCustomInputClick = () => {
+  const handleCustomInputChange = (event) => {
+    const value = event.target.value;
+
+    setCustomInput(value);
     onChange(customInput ? customInput : options[0].value);
   };
 
-  useEffect(() => {
-    onChange(customInput ? customInput : options[0].value);
-  }, [customInput]);
+  const handleCustomInputClick = () => {
+    if (customInput) {
+      onChange(customInput);
+    }
+  };
 
   return (
     <SelectorContainer>
@@ -80,7 +85,7 @@ function Selector({ label, value: currentValue, options, onChange }) {
           placeholder="Custom"
           value={customInput}
           active={customInput === currentValue}
-          onChange={(e) => setCustomInput(e.target.value)}
+          onChange={handleCustomInputChange}
           onClick={handleCustomInputClick}
         />
       </OptionsContainer>
