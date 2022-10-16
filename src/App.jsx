@@ -81,17 +81,20 @@ const InputWrapper = styled.section`
   }
 `;
 
-function App() {
-  const [form, setForm] = useState({
-    bill: '',
-    tip: '5',
-    numberOfPerson: '',
-  });
+const DEFAULT_FORM_STATE = {
+  bill: '',
+  tip: '5',
+  numberOfPerson: '',
+};
 
-  const [personalBill, setPersonalBill] = useState({
-    tipAmount: '0.00',
-    total: '0.00',
-  });
+const DEFAULT_PERSONAL_BILL = {
+  tipAmount: '0.00',
+  total: '0.00',
+};
+
+function App() {
+  const [form, setForm] = useState(DEFAULT_FORM_STATE);
+  const [personalBill, setPersonalBill] = useState(DEFAULT_PERSONAL_BILL);
 
   const tipOptions = [
     { label: '5%', value: '5' },
@@ -120,6 +123,11 @@ function App() {
 
   const handleFormEvent = (key, value) => {
     setForm({ ...form, [key]: value });
+  };
+
+  const handleReset = () => {
+    setForm(DEFAULT_FORM_STATE);
+    setPersonalBill(DEFAULT_PERSONAL_BILL);
   };
 
   return (
@@ -165,7 +173,7 @@ function App() {
             bill={personalBill.tipAmount}
           />
           <BillRow label="Total" subLabel="person" bill={personalBill.total} />
-          <Button>RESET</Button>
+          <Button onClick={handleReset}>RESET</Button>
         </BillIsland>
       </MainIsland>
     </AppContainer>
