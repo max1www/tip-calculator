@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 import Selector from './Selector';
+import { TIP_OPTIONS } from '../Consts';
 
 const Form = styled.form`
   flex: 1;
@@ -24,13 +25,7 @@ const InputWrapper = styled.section`
 `;
 
 function BillForm({ form, changeFormValue }) {
-  const tipOptions = [
-    { label: '5%', value: '5' },
-    { label: '10%', value: '10' },
-    { label: '15%', value: '15' },
-    { label: '25%', value: '25' },
-    { label: '50%', value: '50' },
-  ];
+  const tipOptions = TIP_OPTIONS;
 
   return (
     <Form>

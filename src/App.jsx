@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import styled from 'styled-components';
 import Big from 'big.js';
-
 import BillForm from './components/BillForm';
 import Bill from './components/Bill';
+import { DEFAULT_FORM_STATE, DEFAULT_PERSONAL_BILL } from './Consts';
 
 const AppContainer = styled.div`
   width: min(100% - 15px, 916px);
@@ -43,17 +43,6 @@ const MainIsland = styled.main`
     height: max(calc(100vh - 210px), 760px);
   }
 `;
-
-const DEFAULT_FORM_STATE = {
-  bill: '',
-  tip: '5',
-  numberOfPerson: '',
-};
-
-const DEFAULT_PERSONAL_BILL = {
-  tipAmount: '0.00',
-  total: '0.00',
-};
 
 function App() {
   const [form, setForm] = useState(DEFAULT_FORM_STATE);
