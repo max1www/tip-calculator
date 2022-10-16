@@ -5,6 +5,7 @@ import BillRow from './components/BillRow';
 import Button from './components/Button';
 import Input from './components/Input';
 import Selector from './components/Selector';
+import { useEffect, useState } from 'react';
 
 const AppContainer = styled.div`
   width: min(100% - 15px, 916px);
@@ -80,6 +81,12 @@ const InputWrapper = styled.section`
 `;
 
 function App() {
+  const [form, setForm] = useState({
+    bill: '',
+    tip: 5,
+    numberOfPerson: '',
+  });
+
   const tipOptions = [
     { label: '5%', value: 5 },
     { label: '10%', value: 10 },
@@ -88,6 +95,14 @@ function App() {
     { label: '50%', value: 50 },
   ];
 
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
+
+  const handleFormEvent = (key, value) => {
+    setForm({ ...form, [key]: value });
+  };
+
   return (
     <AppContainer>
       <Header>
@@ -95,18 +110,37 @@ function App() {
       </Header>
       <MainIsland>
         <Form>
-          <Input label="Bill" placeholder="0" icon="dollar" />
+          <Input
+            label="Bill"
+            placeholder="0"
+            icon="dollar"
+            value={form.bill}
+            onChange={(e) => handleFormEvent('bill', e.target.value)}
+          />
           <InputWrapper>
-            <Selector label="Select Tip %" options={tipOptions} />
+            <Selector
+              label="Select Tip %"
+              options={tipOptions}
+              value={form.tip}
+              onChange={(value) => handleFormEvent('tip', value)}
+            />
           </InputWrapper>
           <InputWrapper>
-            <Input label="Number of people" placeholder="0" icon="person" />
+            <Input
+              label="Number of people"
+              placeholder="0"
+              icon="person"
+              value={form.numberOfPerson}
+              onChange={(e) =>
+                handleFormEvent('numberOfPerson', e.target.value)
+              }
+            />
           </InputWrapper>
         </Form>
         <BillIsland>
           <BillRow label="Tip amount" subLabel="person" bill="0.00" />
           <BillRow label="Total" subLabel="person" bill="0.00" />
-          <Button className="reset-button">RESET</Button>
+          <Button>RESET</Button>
         </BillIsland>
       </MainIsland>
     </AppContainer>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 
@@ -19,7 +19,8 @@ const OptionsContainer = styled.div`
 `;
 
 const SelectorButton = styled.button`
-  background-color: var(--very-dark-cyan);
+  background-color: ${({ active }) =>
+    active ? 'var(--strong-cyan)' : 'var(--very-dark-cyan)'};
   color: var(--very-light-grayish-cyan);
   padding: 12px;
   font-size: 16px;
@@ -44,11 +45,22 @@ const SelectorLabel = styled.label`
   margin-bottom: 8px;
 `;
 
-function Selector({ label, options }) {
+function Selector({ label, value: currentValue, options, onChange }) {
+  const [customInput, setCustomInput] = useState('');
+
   const handleOptionClick = (event, value) => {
     event.preventDefault();
-    console.log(value);
+    event.stopPropagation();
+    onChange(value);
   };
+
+  const handleCustomInputClick = () => {
+    onChange(customInput ? customInput : options[0].value);
+  };
+
+  useEffect(() => {
+    onChange(customInput ? customInput : options[0].value);
+  }, [customInput]);
 
   return (
     <SelectorContainer>
@@ -57,12 +69,20 @@ function Selector({ label, options }) {
         {options.map(({ label, value }) => (
           <SelectorButton
             key={value}
+            active={value === currentValue}
             onClick={(e) => handleOptionClick(e, value)}
           >
             {label}
           </SelectorButton>
         ))}
-        <Input placeholder="Custom" />
+        <Input
+          type="number"
+          placeholder="Custom"
+          value={customInput}
+          active={customInput === currentValue}
+          onChange={(e) => setCustomInput(e.target.value)}
+          onClick={handleCustomInputClick}
+        />
       </OptionsContainer>
     </SelectorContainer>
   );

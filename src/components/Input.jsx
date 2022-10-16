@@ -11,7 +11,9 @@ const InputElement = styled.input`
     icon &&
     `background: url(icons/icon-${icon}.svg) no-repeat scroll 15px 19px;`}
   background-color: var(--very-light-grayish-cyan);
-  border: 2px solid var(--very-light-grayish-cyan);
+  border: 2px solid
+    ${({ active }) =>
+      active ? 'var(--strong-cyan)' : 'var(--very-light-grayish-cyan)'};
   border-radius: 4px;
   outline: 0;
   padding: 9px;
@@ -21,8 +23,12 @@ const InputElement = styled.input`
 
   ${({ errorMessage }) => errorMessage && 'border: 2px solid var(--red);'}
 
-  &:focus {
+  &:hover {
     border-color: var(--light-grayish-cyan);
+  }
+
+  &:focus {
+    border-color: var(--strong-cyan);
   }
 `;
 
@@ -51,7 +57,7 @@ function Input(props) {
           )}
         </LabelContainer>
       )}
-      <InputElement {...props} />
+      <InputElement {...props} onChange={props.onChange} />
     </InputContainer>
   );
 }
