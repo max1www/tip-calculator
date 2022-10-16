@@ -1,11 +1,10 @@
+import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import styled from 'styled-components';
 import Big from 'big.js';
 
 import BillForm from './components/BillForm';
-import BillRow from './components/BillRow';
-import Button from './components/Button';
-import { useEffect, useState } from 'react';
+import Bill from './components/Bill';
 
 const AppContainer = styled.div`
   width: min(100% - 15px, 916px);
@@ -45,21 +44,6 @@ const MainIsland = styled.main`
   }
 `;
 
-const BillIsland = styled.section`
-  background-color: var(--very-dark-cyan);
-  border-radius: 12px;
-  padding: 32px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 24px;
-
-  @media (max-width: 767px) {
-    margin: 30px 0 0;
-    flex: none;
-  }
-`;
-
 const DEFAULT_FORM_STATE = {
   bill: '',
   tip: '5',
@@ -77,8 +61,6 @@ function App() {
 
   useEffect(() => {
     const { bill, tip, numberOfPerson } = form;
-
-    console.log(form);
 
     if (bill && tip && numberOfPerson) {
       const billBig = new Big(bill);
@@ -108,15 +90,7 @@ function App() {
       </Header>
       <MainIsland>
         <BillForm form={form} changeFormValue={handleChangeFormValue} />
-        <BillIsland>
-          <BillRow
-            label="Tip amount"
-            subLabel="person"
-            bill={personalBill.tipAmount}
-          />
-          <BillRow label="Total" subLabel="person" bill={personalBill.total} />
-          <Button onClick={handleReset}>RESET</Button>
-        </BillIsland>
+        <Bill personalBill={personalBill} onHandleReset={handleReset}></Bill>
       </MainIsland>
     </AppContainer>
   );
