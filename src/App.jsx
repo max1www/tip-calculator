@@ -2,10 +2,9 @@ import logo from './logo.svg';
 import styled from 'styled-components';
 import Big from 'big.js';
 
+import BillForm from './components/BillForm';
 import BillRow from './components/BillRow';
 import Button from './components/Button';
-import Input from './components/Input';
-import Selector from './components/Selector';
 import { useEffect, useState } from 'react';
 
 const AppContainer = styled.div`
@@ -46,18 +45,6 @@ const MainIsland = styled.main`
   }
 `;
 
-const Form = styled.form`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-right: 24px;
-
-  @media (max-width: 767px) {
-    margin-right: 0;
-    flex: none;
-  }
-`;
-
 const BillIsland = styled.section`
   background-color: var(--very-dark-cyan);
   border-radius: 12px;
@@ -70,14 +57,6 @@ const BillIsland = styled.section`
   @media (max-width: 767px) {
     margin: 30px 0 0;
     flex: none;
-  }
-`;
-
-const InputWrapper = styled.section`
-  margin-top: 42px;
-
-  @media (max-width: 767px) {
-    margin-top: 30px;
   }
 `;
 
@@ -96,14 +75,6 @@ function App() {
   const [form, setForm] = useState(DEFAULT_FORM_STATE);
   const [personalBill, setPersonalBill] = useState(DEFAULT_PERSONAL_BILL);
 
-  const tipOptions = [
-    { label: '5%', value: '5' },
-    { label: '10%', value: '10' },
-    { label: '15%', value: '15' },
-    { label: '25%', value: '25' },
-    { label: '50%', value: '50' },
-  ];
-
   useEffect(() => {
     const { bill, tip, numberOfPerson } = form;
 
@@ -121,7 +92,7 @@ function App() {
     }
   }, [form]);
 
-  const handleFormEvent = (key, value) => {
+  const handleChangeFormValue = (key, value) => {
     setForm({ ...form, [key]: value });
   };
 
@@ -136,36 +107,7 @@ function App() {
         <Logo src={logo} alt="SPLITTER" />
       </Header>
       <MainIsland>
-        <Form>
-          <Input
-            type="positiveDecimal"
-            label="Bill"
-            placeholder="0"
-            icon="dollar"
-            value={form.bill}
-            onChange={(e) => handleFormEvent('bill', e.target.value)}
-          />
-          <InputWrapper>
-            <Selector
-              label="Select Tip %"
-              options={tipOptions}
-              value={form.tip}
-              onChange={(value) => handleFormEvent('tip', value)}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              type="positiveInteger"
-              label="Number of people"
-              placeholder="0"
-              icon="person"
-              value={form.numberOfPerson}
-              onChange={(e) =>
-                handleFormEvent('numberOfPerson', e.target.value)
-              }
-            />
-          </InputWrapper>
-        </Form>
+        <BillForm form={form} changeFormValue={handleChangeFormValue} />
         <BillIsland>
           <BillRow
             label="Tip amount"
