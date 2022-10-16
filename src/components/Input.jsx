@@ -46,7 +46,38 @@ const ErrorMessage = styled.span`
   color: var(--red);
 `;
 
+const CHANGE_LOCKER = {
+  positiveDecimal: (event, params) => {
+    // TODO made regex for it
+    const value = event.target.value;
+    const numberValue = Number(value);
+    const fractionalPart = value.split('.')[1];
+
+    return (
+      numberValue !== isNaN &&
+      numberValue >= 0 &&
+      (fractionalPart?.length ?? 0) <= (params?.precision ?? 2)
+    );
+  },
+  positiveInteger: (event) => {
+    // TODO made regex for it
+    const value = event.target.value;
+    const numberValue = Number(value);
+
+    return numberValue !== isNaN && numberValue >= 0 && !value.includes('.');
+  },
+};
+
 function Input(props) {
+  const handleChangeInput = (event) => {
+    if (
+      !CHANGE_LOCKER[props.type] ||
+      CHANGE_LOCKER[props.type](event, props.lockerParams)
+    ) {
+      props.onChange(event);
+    }
+  };
+
   return (
     <InputContainer>
       {(props.label || props.errorMessage) && (
@@ -57,7 +88,7 @@ function Input(props) {
           )}
         </LabelContainer>
       )}
-      <InputElement {...props} onChange={props.onChange} />
+      <InputElement {...props} type="string" onChange={handleChangeInput} />
     </InputContainer>
   );
 }
