@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 import Selector from './Selector';
-import { TIP_OPTIONS } from '../Consts';
+import { TIP_OPTIONS, SCREEN_SIZE } from '../Consts';
 import {
   POSITIVE_INTEGER_REGEX,
   POSITIVE_DECIMAL_REGEX,

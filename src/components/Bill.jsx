@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BillRow from './BillRow';
-import { DEFAULT_PERSONAL_BILL } from '../Consts';
+import { DEFAULT_PERSONAL_BILL, SCREEN_SIZE } from '../Consts';
 
 const BillIsland = styled.section`
   background-color: var(--very-dark-cyan);
