@@ -25,11 +25,10 @@ const InputElement = styled.input`
     border-color: var(--light-grayish-cyan);
   }
 
-  &:focus {
-    border-color: var(--strong-cyan);
-  }
-
-  ${({ errorMessage }) => errorMessage && 'border: 2px solid var(--red);'}
+  ${({ errorMessage }) =>
+    errorMessage
+      ? `border: 2px solid var(--red);`
+      : '&:focus {border-color: var(--strong-cyan);}'}
 `;
 
 const LabelContainer = styled.div`
