@@ -35,11 +35,12 @@ const LabelContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
-  color: var(--dark-grayish-cyan);
   font-size: 14px;
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+  color: var(--dark-grayish-cyan);
+`;
 
 const ErrorMessage = styled.span`
   color: var(--red);
