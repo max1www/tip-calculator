@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BillRow from './BillRow';
+import { DEFAULT_PERSONAL_BILL } from '../Consts';
 
 const BillIsland = styled.section`
   background-color: var(--very-dark-cyan);
@@ -56,7 +57,15 @@ function Bill({ personalBill, onHandleReset }) {
       />
       <BillRow label="Total" subLabel="person" bill={personalBill.total} />
       <ResetButtonWrapper>
-        <ResetButton onClick={onHandleReset}>RESET</ResetButton>
+        <ResetButton
+          onClick={onHandleReset}
+          disabled={
+            personalBill.tipAmount === DEFAULT_PERSONAL_BILL.tipAmount &&
+            personalBill.total === DEFAULT_PERSONAL_BILL.total
+          }
+        >
+          RESET
+        </ResetButton>
       </ResetButtonWrapper>
     </BillIsland>
   );
