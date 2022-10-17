@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     const { bill, tip, numberOfPerson } = form;
 
-    if (bill && tip && numberOfPerson) {
+    if (bill && tip && numberOfPerson && numberOfPerson !== '0') {
       const billBig = new Big(bill);
       const tipsBig = billBig.mul(new Big(tip).div(100));
       const billWithTipsBig = billBig.plus(tipsBig);
