@@ -18,6 +18,16 @@ const BillIsland = styled.section`
   }
 `;
 
+const ResetButtonWrapper = styled.div`
+  display: flex;
+  margin-top: auto;
+  flex-direction: column;
+
+  @media (max-width: 767px) {
+    margin-top: 15px;
+  }
+`;
+
 function Bill({ personalBill, onHandleReset }) {
   return (
     <BillIsland>
@@ -27,7 +37,9 @@ function Bill({ personalBill, onHandleReset }) {
         bill={personalBill.tipAmount}
       />
       <BillRow label="Total" subLabel="person" bill={personalBill.total} />
-      <Button onClick={onHandleReset}>RESET</Button>
+      <ResetButtonWrapper>
+        <Button onClick={onHandleReset}>RESET</Button>
+      </ResetButtonWrapper>
     </BillIsland>
   );
 }

@@ -36,11 +36,13 @@ const MainIsland = styled.main`
   padding: 32px;
   display: flex;
   flex-direction: row;
+  margin-bottom: 80px;
 
   @media (max-width: 767px) {
     flex-direction: column;
     border-radius: 18px 18px 0 0;
     height: max(calc(100vh - 210px), 760px);
+    margin-bottom: 0px;
   }
 `;
 
