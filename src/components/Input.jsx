@@ -68,20 +68,19 @@ const CHANGE_LOCKER = {
 };
 
 function Input(props) {
+  const { type, lockerParams, validators, errorMessage, label, onChange } =
+    props;
   const [validatorError, setValidatorError] = useState(null);
 
   const handleChangeInput = (event) => {
-    if (
-      !CHANGE_LOCKER[props.type] ||
-      CHANGE_LOCKER[props.type](event, props.lockerParams)
-    ) {
-      props.onChange(event);
+    if (!CHANGE_LOCKER[type] || CHANGE_LOCKER[type](event, lockerParams)) {
+      onChange(event);
 
-      if (!props.validators) {
+      if (!validators) {
         return;
       }
 
-      for (let validator of props.validators) {
+      for (let validator of validators) {
         const errorMessage = validator(event.target.value);
 
         if (errorMessage) {
@@ -96,21 +95,18 @@ function Input(props) {
 
   return (
     <InputContainer>
-      {(props.label || props.errorMessage || validatorError) && (
+      {(label || errorMessage || validatorError) && (
         <LabelContainer>
-          {props.label && <Label>{props.label}</Label>}
-          {props.errorMessage ||
-            (validatorError && (
-              <ErrorMessage>
-                {props.errorMessage || validatorError}
-              </ErrorMessage>
-            ))}
+          {label && <Label>{label}</Label>}
+          {(errorMessage || validatorError) && (
+            <ErrorMessage>{errorMessage || validatorError}</ErrorMessage>
+          )}
         </LabelContainer>
       )}
       <InputElement
-        errorMessage={validatorError}
         {...props}
         type="string"
+        errorMessage={errorMessage ?? validatorError}
         onChange={handleChangeInput}
       />
     </InputContainer>
