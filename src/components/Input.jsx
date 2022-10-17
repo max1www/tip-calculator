@@ -21,8 +21,6 @@ const InputElement = styled.input`
   text-align: right;
   font-size: 24px;
 
-  ${({ errorMessage }) => errorMessage && 'border: 2px solid var(--red);'}
-
   &:hover {
     border-color: var(--light-grayish-cyan);
   }
@@ -30,6 +28,8 @@ const InputElement = styled.input`
   &:focus {
     border-color: var(--strong-cyan);
   }
+
+  ${({ errorMessage }) => errorMessage && 'border: 2px solid var(--red);'}
 `;
 
 const LabelContainer = styled.div`
@@ -108,7 +108,12 @@ function Input(props) {
             ))}
         </LabelContainer>
       )}
-      <InputElement {...props} type="string" onChange={handleChangeInput} />
+      <InputElement
+        errorMessage={validatorError}
+        {...props}
+        type="string"
+        onChange={handleChangeInput}
+      />
     </InputContainer>
   );
 }
