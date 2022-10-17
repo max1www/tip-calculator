@@ -4,13 +4,17 @@ import styled from 'styled-components';
 import Big from 'big.js';
 import BillForm from './components/BillForm';
 import Bill from './components/Bill';
-import { DEFAULT_FORM_STATE, DEFAULT_PERSONAL_BILL } from './Consts';
+import {
+  DEFAULT_FORM_STATE,
+  DEFAULT_PERSONAL_BILL,
+  SCREEN_SIZE,
+} from './Consts';
 
 const AppContainer = styled.div`
   width: min(100% - 15px, 916px);
   margin-inline: auto;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     width: 100%;
   }
 `;
@@ -20,7 +24,7 @@ const Header = styled.header`
   justify-content: center;
   padding: 158px 0 80px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     padding: 46px 0 36px;
   }
 `;
@@ -38,7 +42,7 @@ const MainIsland = styled.main`
   flex-direction: row;
   margin-bottom: 80px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     flex-direction: column;
     border-radius: 18px 18px 0 0;
     height: max(calc(100vh - 210px), 760px);

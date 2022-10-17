@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { SCREEN_SIZE } from '../Consts';
 import Input from './Input';
 
 const SelectorContainer = styled.div`
@@ -13,7 +14,7 @@ const OptionsContainer = styled.div`
   grid-auto-rows: 57.5px;
   grid-gap: 14px;
 
-  @media (max-width: 640px) {
+  @media (max-width: ${SCREEN_SIZE.SM}px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;

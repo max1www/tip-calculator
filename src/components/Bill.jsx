@@ -12,7 +12,7 @@ const BillIsland = styled.section`
   flex-direction: column;
   margin-left: 24px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     margin: 30px 0 0;
     flex: none;
   }
@@ -23,7 +23,7 @@ const ResetButtonWrapper = styled.div`
   margin-top: auto;
   flex-direction: column;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     margin-top: 15px;
   }
 `;

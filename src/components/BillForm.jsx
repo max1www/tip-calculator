@@ -16,7 +16,7 @@ const Form = styled.form`
   flex-direction: column;
   margin-right: 24px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     margin-right: 0;
     flex: none;
   }
@@ -25,7 +25,7 @@ const Form = styled.form`
 const InputWrapper = styled.section`
   margin-top: 42px;
 
-  @media (max-width: 767px) {
+  @media (max-width: ${SCREEN_SIZE.MD}px) {
     margin-top: 30px;
   }
 `;

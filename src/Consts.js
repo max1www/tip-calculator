@@ -1,3 +1,8 @@
+export const SCREEN_SIZE = {
+  SM: 640,
+  MD: 768,
+};
+
 export const DEFAULT_FORM_STATE = {
   bill: '',
   tip: '5',
