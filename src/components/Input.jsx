@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const InputContainer = styled.div`
@@ -69,23 +69,43 @@ const CHANGE_LOCKER = {
 };
 
 function Input(props) {
+  const [validatorError, setValidatorError] = useState(null);
+
   const handleChangeInput = (event) => {
     if (
       !CHANGE_LOCKER[props.type] ||
       CHANGE_LOCKER[props.type](event, props.lockerParams)
     ) {
       props.onChange(event);
+
+      if (!props.validators) {
+        return;
+      }
+
+      for (let validator of props.validators) {
+        const errorMessage = validator(event.target.value);
+
+        if (errorMessage) {
+          setValidatorError(errorMessage);
+          return;
+        }
+      }
+
+      setValidatorError(null);
     }
   };
 
   return (
     <InputContainer>
-      {(props.label || props.errorMessage) && (
+      {(props.label || props.errorMessage || validatorError) && (
         <LabelContainer>
           {props.label && <Label>{props.label}</Label>}
-          {props.errorMessage && (
-            <ErrorMessage>{props.errorMessage}</ErrorMessage>
-          )}
+          {props.errorMessage ||
+            (validatorError && (
+              <ErrorMessage>
+                {props.errorMessage || validatorError}
+              </ErrorMessage>
+            ))}
         </LabelContainer>
       )}
       <InputElement {...props} type="string" onChange={handleChangeInput} />

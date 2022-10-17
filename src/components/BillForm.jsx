@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Input from './Input';
 import Selector from './Selector';
 import { TIP_OPTIONS } from '../Consts';
+import { notZeroValidator } from '../utils/FormValidators';
 
 const Form = styled.form`
   flex: 1;
@@ -52,6 +53,7 @@ function BillForm({ form, changeFormValue }) {
           placeholder="0"
           icon="person"
           value={form.numberOfPerson}
+          validators={[notZeroValidator]}
           onChange={(e) => changeFormValue('numberOfPerson', e.target.value)}
         />
       </InputWrapper>
