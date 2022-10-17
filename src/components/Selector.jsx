@@ -21,7 +21,8 @@ const OptionsContainer = styled.div`
 const SelectorButton = styled.button`
   background-color: ${({ active }) =>
     active ? 'var(--strong-cyan)' : 'var(--very-dark-cyan)'};
-  color: var(--very-light-grayish-cyan);
+  color: ${({ active }) =>
+    active ? '--very-dark-cyan' : 'var(--very-light-grayish-cyan)'};
   padding: 12px;
   font-size: 16px;
   border: 0;

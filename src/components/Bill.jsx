@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import BillRow from './BillRow';
-import Button from './Button';
 
 const BillIsland = styled.section`
   background-color: var(--very-dark-cyan);
@@ -28,6 +27,25 @@ const ResetButtonWrapper = styled.div`
   }
 `;
 
+const ResetButton = styled.button`
+  background-color: var(--strong-cyan);
+  color: var(--very-dark-cyan);
+  padding: 12px;
+  font-size: 16px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsl(185, 41%, 84%);
+  }
+
+  &:disabled {
+    background-color: hsl(184, 14%, 56%);
+    opacity: 0.5;
+  }
+`;
+
 function Bill({ personalBill, onHandleReset }) {
   return (
     <BillIsland>
@@ -38,7 +56,7 @@ function Bill({ personalBill, onHandleReset }) {
       />
       <BillRow label="Total" subLabel="person" bill={personalBill.total} />
       <ResetButtonWrapper>
-        <Button onClick={onHandleReset}>RESET</Button>
+        <ResetButton onClick={onHandleReset}>RESET</ResetButton>
       </ResetButtonWrapper>
     </BillIsland>
   );
