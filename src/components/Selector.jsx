@@ -47,24 +47,39 @@ const SelectorLabel = styled.label`
 `;
 
 function Selector({ label, value: currentValue, options, onChange }) {
+  const [customInputIsActive, setCustomInputIsActive] = useState(false);
   const [customInput, setCustomInput] = useState('');
+
+  const toggleCustomInputIsActive = (flag) => {
+    if (flag !== customInputIsActive) {
+      setCustomInputIsActive(flag);
+    }
+  };
 
   const handleOptionClick = (event, value) => {
     event.preventDefault();
     event.stopPropagation();
     onChange(value);
+    toggleCustomInputIsActive(false);
   };
 
   const handleCustomInputChange = (event) => {
     const value = event.target.value;
 
     setCustomInput(value);
-    onChange(value ? value : options[0].value);
+
+    if (value) {
+      onChange(value);
+      toggleCustomInputIsActive(true);
+    } else {
+      onChange(options[0].value);
+    }
   };
 
   const handleCustomInputClick = () => {
     if (customInput) {
       onChange(customInput);
+      toggleCustomInputIsActive(true);
     }
   };
 
@@ -75,7 +90,7 @@ function Selector({ label, value: currentValue, options, onChange }) {
         {options.map(({ label, value }) => (
           <SelectorButton
             key={value}
-            active={value === currentValue}
+            active={!customInputIsActive && value === currentValue}
             onClick={(e) => handleOptionClick(e, value)}
           >
             {label}
@@ -85,7 +100,7 @@ function Selector({ label, value: currentValue, options, onChange }) {
           type="positiveInteger"
           placeholder="Custom"
           value={customInput}
-          active={customInput === currentValue}
+          active={customInputIsActive && customInput === currentValue}
           onChange={handleCustomInputChange}
           onClick={handleCustomInputClick}
         />
