@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import Input from './Input';
 import Selector from './Selector';
 import { TIP_OPTIONS } from '../Consts';
+import {
+  POSITIVE_INTEGER_REGEX,
+  POSITIVE_DECIMAL_REGEX,
+  LESS_THAN_100,
+} from '../utils/RegEx';
 import { notZeroValidator } from '../utils/FormValidators';
 
 const Form = styled.form`
@@ -26,32 +31,31 @@ const InputWrapper = styled.section`
 `;
 
 function BillForm({ form, changeFormValue }) {
-  const tipOptions = TIP_OPTIONS;
-
   return (
     <Form>
       <Input
-        type="positiveDecimal"
         label="Bill"
         placeholder="0"
         icon="dollar"
+        regex={POSITIVE_DECIMAL_REGEX}
         value={form.bill}
         onChange={(e) => changeFormValue('bill', e.target.value)}
       />
       <InputWrapper>
         <Selector
           label="Select Tip %"
-          options={tipOptions}
+          options={TIP_OPTIONS}
+          customInputRegex={LESS_THAN_100}
           value={form.tip}
           onChange={(value) => changeFormValue('tip', value)}
         />
       </InputWrapper>
       <InputWrapper>
         <Input
-          type="positiveInteger"
           label="Number of people"
           placeholder="0"
           icon="person"
+          regex={POSITIVE_INTEGER_REGEX}
           value={form.numberOfPerson}
           validators={[notZeroValidator]}
           onChange={(e) => changeFormValue('numberOfPerson', e.target.value)}

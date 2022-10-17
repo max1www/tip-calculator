@@ -46,7 +46,13 @@ const SelectorLabel = styled.label`
   margin-bottom: 8px;
 `;
 
-function Selector({ label, value: currentValue, options, onChange }) {
+function Selector({
+  label,
+  value: currentValue,
+  customInputRegex,
+  options,
+  onChange,
+}) {
   const [customInputIsActive, setCustomInputIsActive] = useState(false);
   const [customInput, setCustomInput] = useState('');
 
@@ -97,8 +103,8 @@ function Selector({ label, value: currentValue, options, onChange }) {
           </SelectorButton>
         ))}
         <Input
-          type="positiveInteger"
           placeholder="Custom"
+          regex={customInputRegex}
           value={customInput}
           active={customInputIsActive && customInput === currentValue}
           onChange={handleCustomInputChange}

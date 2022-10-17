@@ -45,35 +45,12 @@ const ErrorMessage = styled.span`
   color: var(--red);
 `;
 
-const CHANGE_LOCKER = {
-  positiveDecimal: (event, params) => {
-    // TODO made regex for it
-    const value = event.target.value;
-    const numberValue = Number(value);
-    const fractionalPart = value.split('.')[1];
-
-    return (
-      numberValue !== isNaN &&
-      numberValue >= 0 &&
-      (fractionalPart?.length ?? 0) <= (params?.precision ?? 2)
-    );
-  },
-  positiveInteger: (event) => {
-    // TODO made regex for it
-    const value = event.target.value;
-    const numberValue = Number(value);
-
-    return numberValue !== isNaN && numberValue >= 0 && !value.includes('.');
-  },
-};
-
 function Input(props) {
-  const { type, lockerParams, validators, errorMessage, label, onChange } =
-    props;
+  const { regex, validators, errorMessage, label, onChange } = props;
   const [validatorError, setValidatorError] = useState(null);
 
   const handleChangeInput = (event) => {
-    if (!CHANGE_LOCKER[type] || CHANGE_LOCKER[type](event, lockerParams)) {
+    if (!regex || !event.target.value || regex.test(event.target.value)) {
       onChange(event);
 
       if (!validators) {
