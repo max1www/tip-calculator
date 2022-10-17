@@ -60,6 +60,7 @@ function App() {
     if (bill && tip && numberOfPerson) {
       if (numberOfPerson === '0') {
         setPersonalBill(DEFAULT_PERSONAL_BILL);
+        return;
       }
 
       const billBig = new Big(bill);
