@@ -57,7 +57,11 @@ function App() {
   useEffect(() => {
     const { bill, tip, numberOfPerson } = form;
 
-    if (bill && tip && numberOfPerson && numberOfPerson !== '0') {
+    if (bill && tip && numberOfPerson) {
+      if (numberOfPerson === '0') {
+        setPersonalBill(DEFAULT_PERSONAL_BILL);
+      }
+
       const billBig = new Big(bill);
       const tipsBig = billBig.mul(new Big(tip).div(100));
       const billWithTipsBig = billBig.plus(tipsBig);
