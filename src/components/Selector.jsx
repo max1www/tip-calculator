@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SCREEN_SIZE } from '../Consts';
 import Input from './Input';
@@ -56,6 +56,12 @@ function Selector({
 }) {
   const [customInputIsActive, setCustomInputIsActive] = useState(false);
   const [customInput, setCustomInput] = useState('');
+
+  useEffect(() => {
+    if (currentValue !== customInput) {
+      setCustomInputIsActive(false);
+    }
+  }, [currentValue, customInput]);
 
   const toggleCustomInputIsActive = (flag) => {
     if (flag !== customInputIsActive) {
