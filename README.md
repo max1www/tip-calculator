@@ -34,7 +34,7 @@ Users should be able to:
 ### Links
 
 - [GitHub](https://github.com/max1www/tip-calculator)
-- [CodeSandbox](https://codesandbox.io/p/github/max1www/tip-calculator)
+- [CodeSandbox](https://codesandbox.io/p/github/max1www/tip-calculator/main?file=%2FREADME.md)
 
 ## My process
 
