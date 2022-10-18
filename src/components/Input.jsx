@@ -51,7 +51,7 @@ function Input(props) {
   const [validatorError, setValidatorError] = useState(null);
 
   const handleChangeInput = (event) => {
-    if (!regex || !event.target.value || regex.test(event.target.value)) {
+    if (!regex || regex.test(event.target.value)) {
       onChange(event);
 
       if (!validators) {
